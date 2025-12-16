@@ -1,9 +1,12 @@
 import type React from "react";
 import { useState } from "react";
-import { Sparkles, Terminal, PlayCircle } from "lucide-react";
+import { Sparkles, Terminal, PlayCircle, LogOut } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 
 const Header: React.FC = () => {
   const [activeTab, setActiveTab] = useState<"demo" | "architecture">("demo");
+  const { user, logout } = useAuth();
 
   return (
     <header className="bg-slate-900/80 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50 px-6 py-4">
@@ -49,9 +52,25 @@ const Header: React.FC = () => {
 
         <div className="hidden md:flex items-center gap-3 bg-slate-800/30 px-3 py-1.5 rounded-full border border-slate-700/50">
           <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
-          <span className="text-[10px] font-mono text-slate-400">
-            UID: TEMP_8291_SYNC
-          </span>
+          {user && (
+            <div className="hidden md:flex items-center gap-3 bg-slate-900/30 px-3 py-1.5 rounded-full border border-slate-800">
+              <img
+                src={user.avatar}
+                className="w-5 h-5 rounded-full"
+                alt={user.name}
+              />
+              <span className="text-[10px] font-mono text-slate-400">
+                {user.name} ({user.role})
+              </span>
+              <button
+                onClick={logout}
+                className="text-slate-500 hover:text-rose-400 transition-colors"
+                title="登出"
+              >
+                <LogOut size={14} />
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </header>

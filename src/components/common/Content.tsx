@@ -1,6 +1,8 @@
 import type React from "react";
 import { useState } from "react";
 import { ChevronRight, Loader2, RefreshCcw } from "lucide-react";
+import { useTheme } from "../../hooks/useTheme";
+import { THEMES } from "../../types/theme.typs";
 import LiveDemo from "../LiveDemo";
 
 const Content: React.FC = () => {
@@ -8,9 +10,12 @@ const Content: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [spec, setSpec] = useState<any>(null);
   const [activeTab, setActiveTab] = useState<"demo" | "architecture">("demo");
+  const { theme } = useTheme();
+
+  const themeConfig = THEMES[theme];
 
   return (
-    <main className="flex-1 max-w-7xl w-full mx-auto p-6">
+    <main className={`${themeConfig.bg} flex-1 max-w-7xl w-full mx-auto p-6`}>
       {activeTab === "demo" ? (
         <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
           <div className="mb-8 max-w-2xl">

@@ -7,6 +7,7 @@ import GuestRoute from "./components/GuestRoute";
 
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { AuthProvider } from "./context/auth.context";
+import { ThemeProvider } from "./context/theme.context";
 
 function AppContent() {
   return (
@@ -23,29 +24,31 @@ function AppContent() {
 
 function App() {
   return (
-    <AuthProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path="/index"
-            element={
-              <PrivateRoute>
-                <AppContent />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              <GuestRoute>
-                <Login />
-              </GuestRoute>
-            }
-          />
-          <Route path="*" element={<Navigate to="/index" replace />} />
-        </Routes>
-      </BrowserRouter>
-    </AuthProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route
+              path="/index"
+              element={
+                <PrivateRoute>
+                  <AppContent />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                <GuestRoute>
+                  <Login />
+                </GuestRoute>
+              }
+            />
+            <Route path="*" element={<Navigate to="/index" replace />} />
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
+    </ThemeProvider>
   );
 }
 

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import ReactPlayer from "react-player";
 import { UserRole, type IUser } from "../types/user.type";
 import type { IVideo } from "../types/video.type";
 import type { IMessage } from "../types/message.type";
@@ -66,8 +67,8 @@ const LiveDemo: React.FC = () => {
     },
   ]);
   const [chatInput, setChatInput] = useState("");
-  //   const playerRef = useRef<ReactPlayer>(null);
   const chatEndRef = useRef<HTMLDivElement>(null);
+  const playerRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -157,6 +158,19 @@ const LiveDemo: React.FC = () => {
             更換
           </button>
         </form>
+
+        {/* Player Container */}
+        <div className="relative aspect-video bg-black rounded-xl overflow-hidden border border-slate-700 shadow-2xl">
+          <ReactPlayer
+            ref={playerRef}
+            src={videoUrl}
+            width="100%"
+            height="100%"
+            playing={videoState.playing}
+            volume={videoState.volume}
+            controls={true}
+          ></ReactPlayer>
+        </div>
       </div>
 
       {/* Chat區域 */}

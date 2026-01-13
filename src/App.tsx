@@ -8,15 +8,18 @@ import GuestRoute from "./components/GuestRoute";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { AuthProvider } from "./context/auth.context";
 import { ThemeProvider } from "./context/theme.context";
+import { THEMES } from "../src/types/theme.typs";
+import { useTheme } from "../src/hooks/useTheme";
 
 function AppContent() {
+  const { theme } = useTheme();
+
+  const themeConfig = THEMES[theme];
+
   return (
-    <div className="min-h-screen flex flex-col">
-      {/* Header */}
+    <div className={`${themeConfig.bg} min-h-screen flex flex-col`}>
       <Header />
-      {/* Content */}
       <Content />
-      {/* Footer */}
       <Footer />
     </div>
   );
